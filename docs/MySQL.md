@@ -16,11 +16,15 @@
 
 #### 共享锁（Share Lock）(S锁)
 
+`SELECT ... LOCK IN SHARE MODE`
+
 其他事务只能对该数据加读锁，而不能加写锁
 
 读数据的时候不支持修改，避免重复读
 
 #### 排它锁（eXclusive Lock）(X锁)
+
+`SELECT ... FOR UPDATE`
 
 其他事务不能为数据加任何锁
 
@@ -29,6 +33,10 @@
 ### 基于粒度
 
 #### 表锁
+
+`LOCK TABLES ... READ`
+
+`LOCK TABLES ... WRITE`
 
 #### 行锁
 
