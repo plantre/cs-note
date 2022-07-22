@@ -3,4 +3,4 @@
 ---
 ![]()
 
-[Redis](www.baidu.com)
+[Redis](https://www.baidu.com)
