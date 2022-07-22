@@ -26,7 +26,7 @@
 
 [MySQL]()
 
-[Redis]()
+[Redis](docs/Redis.md)
 
 ## 分布式
 
