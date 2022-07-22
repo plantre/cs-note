@@ -28,7 +28,7 @@
 
 ## 数据库
 
-[MySQL]()
+[MySQL](docs/MySQL.md)
 
 [Redis](docs/Redis.md)
 
