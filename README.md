@@ -8,21 +8,21 @@
 
 ## 计算机基础
 
-[数据结构与算法]()
+[数据结构与算法](docs/)
 
-[计算机组成原理]()
+[计算机组成原理](docs/)
 
-[操作系统]()
+[操作系统](docs/)
 
-[计算机网络]()
+[计算机网络](docs/)
 
 ## Java
 
-[基础]()
+[基础](docs/)
 
 [集合与并发编程](docs/set&concurrent.md)
 
-[JVM]()
+[JVM](docs/JVM.md)
 
 [Spring](docs/Spring.md)
 
@@ -34,24 +34,24 @@
 
 ## 分布式
 
-[理论]()
+[理论](docs/distributed.md)
 
-[Dubbo]()
+[Dubbo](docs/)
 
-[Zookeeper]()
+[Zookeeper](docs/)
 
-[Kafka]()
+[Kafka](docs/)
 
 
 ## 工具
 
-[Linux]()
+[Linux](docs/)
 
-[Docker]()
+[Docker](docs/)
 
-[Git]()
+[Git](docs/)
 
-[SVN]()
+[SVN](docs/)
 
 ## [架构](docs/structure.md)
 
