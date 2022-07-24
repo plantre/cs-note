@@ -16,7 +16,7 @@
 
 ##### TreeSet（二叉树）
 
-##### LinkHashSet（HashSet+LinkedHashMap）
+##### LinkedHashSet（HashSet+LinkedHashMap）
 
 #### Queue（单端队列，满足FIFO）
 
@@ -34,7 +34,7 @@
 
 ##### TreeMap（可排序）
 
-##### LinkHashMap（记录插入顺序）
+##### LinkedHashMap（记录插入顺序）
 
 ##### HashTable
 

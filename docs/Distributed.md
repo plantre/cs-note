@@ -36,6 +36,98 @@
 
 ## 分布式锁
 
+场景：互联网秒杀，抢优惠卷，接口幂等性校验
+
+### 基于数据库
+
+### 基于Redis
+
+```java
+@RequestMapping(value = "/duduct_stock")
+public String deductStock(){
+    String lockKey = "product_001";
+
+    try{
+        Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,"wangcp",10,TimeUnit.SECONDS);
+        if(!result){
+            // 代表已经加锁了
+            return "error_code";
+        }
+        // 从redis 中拿当前库存的值
+        int stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
+        if(stock > 0){
+            int realStock = stock - 1;
+            stringRedisTemplate.opsForValue().set("stock",realStock + "");
+            System.out.println("扣减成功，剩余库存：" + realStock);
+        }else{
+            System.out.println("扣减失败，库存不足");
+        }
+    }finally {
+        // 释放锁
+        stringRedisTemplate.delete(lockKey);
+    }
+
+    return "end";
+}
+```
+
+#### Redisson分布式锁
+
+```text
+@Bean
+public RedissonClient redisson(){
+    // 单机模式
+    Config config = new Config();
+    config.useSingleServer().setAddress("redis://192.168.3.170:6379").setDatabase(0);
+    return Redisson.create(config);
+}
+```
+
+### **Redisson实现分布式锁**
+
+```java
+@RestController
+public class IndexController {
+
+    @Autowired
+    private RedissonClient redisson;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    /**
+     * 模拟下单减库存的场景
+     * @return
+     */
+    @RequestMapping(value = "/duduct_stock")
+    public String deductStock(){
+        String lockKey = "product_001";
+        // 1.获取锁对象
+        RLock redissonLock = redisson.getLock(lockKey);
+        try{
+            // 2.加锁
+            redissonLock.lock();  // 等价于 setIfAbsent(lockKey,"wangcp",10,TimeUnit.SECONDS);
+            // 从redis 中拿当前库存的值
+            int stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
+            if(stock > 0){
+                int realStock = stock - 1;
+                stringRedisTemplate.opsForValue().set("stock",realStock + "");
+                System.out.println("扣减成功，剩余库存：" + realStock);
+            }else{
+                System.out.println("扣减失败，库存不足");
+            }
+        }finally {
+            // 3.释放锁
+            redissonLock.unlock();
+        }
+        return "end";
+    }
+}
+```
+
+![Redisson 分布式锁实现原理图](https://pic3.zhimg.com/v2-9a9281a0be299b4fd960e7d0bbde10aa_b.jpg)
+
+### 基于Zookeeper
+
 ## 分布式ID
 
 ## 高并发
