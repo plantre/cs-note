@@ -42,6 +42,8 @@
 
 ### 基于Redis
 
+**SET key value [EX seconds|PX milliseconds] [NX|XX] [KEEPTTL]**
+
 ```java
 @RequestMapping(value = "/duduct_stock")
 public String deductStock(){
@@ -71,6 +73,15 @@ public String deductStock(){
 }
 ```
 
+#### RedLock
+
+Redis官方提出的一种分布式锁的算法
+
+1. 顺序向n个节点请求加锁
+2. 根据一定的超时时间来推断是不是跳过该节点
+3. (n/2+1)节点加锁成功并且花费时间小于锁的有效期
+4. 认定加锁成功
+
 #### Redisson分布式锁
 
 ```text
@@ -82,8 +93,6 @@ public RedissonClient redisson(){
     return Redisson.create(config);
 }
 ```
-
-### **Redisson实现分布式锁**
 
 ```java
 @RestController
