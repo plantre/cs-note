@@ -51,8 +51,11 @@
 
 [项目构建](docs/Build.md)
 
-## [思想](docs/Structure.md)
+## 思想
 
+[架构](docs/Structure.md)
+
+[设计模式](docs/DesignPattern.md)
 
 
 ---
