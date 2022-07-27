@@ -1,3 +1,5 @@
+`int[] array = result.stream().mapToInt(Integer::intValue).toArray();`
+
  # 力扣
 
 [121. 买卖股票的最佳时机 - 力扣（LeetCode）](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
