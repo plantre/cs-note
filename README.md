@@ -49,9 +49,9 @@
 
 [Docker](docs/Docker.md)
 
-[项目构建](docs/Builde.md)
+[项目构建](docs/Build.md)
 
-## [架构](docs/Structure.md)
+## [思想](docs/Structure.md)
 
 
 
