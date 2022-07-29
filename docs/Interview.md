@@ -314,17 +314,17 @@ Selector是多路复用器，可以通过它监听网络IO的状态。它可以�
 
 ![OSI](images/OSI.png)
 
-![](https://img-blog.csdnimg.cn/5e24b0cc220d4beda69cdc6bea9250e6.png)
+![](images/OSI-2.png)
 
-![](https://img-blog.csdnimg.cn/7e31c1693ee04647902bf86bdbeb912e.png)
+![](images/OSI-3.png)
 
 
 
 ###### tcp和udp的报文结构了解么
 
-![TCP](http://images.jackailiu.com/editor/201908/156595990140655.png)
+![TCP](images/TCP.png)
 
-![UDP](http://images.jackailiu.com/editor/201908/156601332273400.png)
+![UDP](images/UDP.png)
 
 ###### tcp和udp的区别，tcp怎么保证可靠连接的，出现网络拥塞怎么解决
 
@@ -355,13 +355,13 @@ TCP是面向字节流的，它要求数据报按次序到达。发送端会为�
 
 ###### socket了解么，tcp和udp的实现区别，不了解，用的不多
 
-![socket](http://images.jackailiu.com/editor/201908/156605164049363.png)
+![socket](images/SOCKET.png)
 
 ###### tcp连接client和server有哪些状态，time_wait状态
 
-![](https://img-blog.csdnimg.cn/3dc547e1a5784c0dbf372acf4dc015a9.png)
+![](images/TCP-连接.png)
 
-![](https://img-blog.csdnimg.cn/fed47cadd53d4b03ab6d8c731eeb2eca.png)
+![](images/TCP-断开.png)
 
 ###### linux最多可以建立多少个tcp连接，client端，server端，超过了怎么办
 
