@@ -312,7 +312,7 @@ Selector是多路复用器，可以通过它监听网络IO的状态。它可以�
 
 ###### OSI
 
-![OSI](https://img-blog.csdnimg.cn/8c065b026670452f8f1859b2024beb0b.png)
+![OSI](images/OSI.png)
 
 ![](https://img-blog.csdnimg.cn/5e24b0cc220d4beda69cdc6bea9250e6.png)
 
