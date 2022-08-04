@@ -289,17 +289,29 @@ Redis中大批量key在同一时间同时失效导致所有请求都打到了MyS
 
 在Redis的用于缓存的内存不足时，怎么处理需要新写入且需要申请额外空间的数据
 
-volatile-lru
+1）全局的键空间选择性移除
 
-volatile-ttl
+​	**allkeys-lru**：在键空间中，移除最近最少使用的key。（这个是最常用的）
 
-volatile-random
+​	**allkeys-random**：在键空间中，随机移除某个key。
 
-allkeys-lru
+​	**no-eviction**：当内存不足以容纳新写入数据时，新写入操作会报错。
 
-allkeys-random
+2）设置过期时间的键空间选择性移除
 
-no-enviction
+​	**volatile-lru**：在设置了过期时间的键空间中，移除最近最少使用的key。
+
+​	**volatile-random**：在设置了过期时间的键空间中，随机移除某个key。
+
+​	**volatile-ttl**：在设置了过期时间的键空间中，有更早过期时间的key优先移除。
+
+**总结**
+
+Redis的内存淘汰策略的选取并不会影响过期的key的处理。
+
+内存淘汰策略用于处理内存不足时的需要申请额外空间的数据；
+
+过期策略用于处理过期的缓存数据。
 
 ### 消息通知
 

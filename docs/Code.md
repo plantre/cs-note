@@ -1,10 +1,38 @@
 `int[] array = result.stream().mapToInt(Integer::intValue).toArray();`
 
- # 力扣
+# 动态规划
+
+[剑指 Offer 14- I. 剪绳子 - 力扣（LeetCode）](https://leetcode.cn/problems/jian-sheng-zi-lcof/)
+
+[42. 接雨水 - 力扣（LeetCode）](https://leetcode.cn/problems/trapping-rain-water/)
 
 [121. 买卖股票的最佳时机 - 力扣（LeetCode）](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
 
 (只能一次，最多两次，不限次数)
+
+[860. 柠檬水找零 - 力扣（LeetCode）](https://leetcode.cn/problems/lemonade-change/)
+
+# 数组
+
+###### 排序数组，平方后，数组当中有多少不同的数字（相同算一个）
+
+###### 一个数据先递增再递减，找出数组不重复的个数，比如 [1, 3, 9, 1]，结果为3，不能使用额外空间，复杂度o(n)
+
+###### 递增数组，找出和为k的数对
+
+###### 给出一个数组nums，一个值k，找出数组中的两个下标 i，j 使得 nums[i] + nums[j] = k.
+
+
+
+# 滑动窗口
+
+和为s的连续正整数序列（[剑指offer](https://www.nowcoder.com/jump/super-jump/word?word=剑指offer)57-II)
+
+###### 某一个大文件被拆成了N个小文件，每个小文件编号从0至N-1，相应大小分别记为S(i)。给定磁盘空间为C，试实现一个函数从N个文件中连续选出若干个文件拷贝到磁盘中，使得磁盘剩余空间最小。
+
+###### 给定m个不重复的字符 [a, b, c, d]，以及一个长度为n的字符串tbcacbdata，问能否在这个字符串中找到一个长度为m的连续子串，使得这个子串刚好由上面m个字符组成，顺序无所谓，返回任意满足条件的一个子串的起始位置，未找到返回-1。比如上面这个例子，acbd，3。
+
+###### 有序有重复数组，给定target确定范围
 
 [55. 跳跃游戏 - 力扣（LeetCode）](https://leetcode.cn/problems/jump-game/)
 
@@ -12,7 +40,7 @@
 
 [128. 最长连续序列 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-consecutive-sequence/)
 
-[42. 接雨水 - 力扣（LeetCode）](https://leetcode.cn/problems/trapping-rain-water/)
+
 
 求二叉树根节点到叶子结点的路径和的最小值
 
@@ -36,13 +64,7 @@
 
 [134. 加油站 - 力扣（LeetCode）](https://leetcode.cn/problems/gas-station/)
 
-[860. 柠檬水找零 - 力扣（LeetCode）](https://leetcode.cn/problems/lemonade-change/)
 
-# 剑指
-
-
-
-[剑指 Offer 14- I. 剪绳子 - 力扣（LeetCode）](https://leetcode.cn/problems/jian-sheng-zi-lcof/)
 
 [剑指 Offer 32 - I. 从上到下打印二叉树 - 力扣（LeetCode）](https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
 
@@ -54,11 +76,11 @@
 
 
 
-# 其他
+# 
 
 ###### AB两个排序数组，原地合并数组。（A当中穿插一些无效数字怎么处理？）
 
-###### 排序数组，平方后，数组当中有多少不同的数字（相同算一个）
+###### 
 
 ###### 高考成绩2000万数据，分数0-750，如何快速知道你的排名，如何知道任一分数排名
 

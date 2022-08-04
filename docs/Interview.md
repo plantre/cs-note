@@ -73,7 +73,7 @@ public class HeapSort {
 		int right = 2 * i + 2;
 		// 默认当前节点（父节点）是最大值。
 		int largestIndex = i;
-		if (left < len && arr[left] > arr[largestIndex]) {
+		if (left < len && arr[left] >  arr[largestIndex]) {
 			// 如果有左节点，并且左节点的值更大，更新最大值的索引
 			largestIndex = left;
 		}
@@ -307,6 +307,56 @@ Selector是多路复用器，可以通过它监听网络IO的状态。它可以�
    **阻塞和非阻塞的概念**描述的是用户线程调用内核IO操作的方式：阻塞是指IO操作需要彻底完成后才返回到用户空间；而非阻塞是指IO操作被调用后立即返回给用户一个状态值，无需等到IO操作彻底完成。
 
 ###### 了解netty么，讲讲netty的设计模型，架构，使用场景
+
+**Netty 核心组件**
+
+Channel
+
+`Channel接口是 Netty 对网络操作抽象类，它除了包括基本的 I/O 操作，如 bind()、connect()、read()、write() 等。`
+
+`比较常用的Channel接口实现类是NioServerSocketChannel（服务端）和NioSocketChannel（客户端），这两个 Channel 可以和 BIO 编程模型中的ServerSocket以及Socket两个概念对应上。Netty 的 Channel 接口所提供的 API，大大地降低了直接使用 Socket 类的复杂性。`
+
+EventLoop
+
+`EventLoop的主要作用实际就是负责监听网络事件并调用事件处理器进行相关 I/O 操作的处理。`
+
+`Channel 为 Netty 网络操作(读写等操作)抽象类，EventLoop负责处理注册到其上的Channel处理 I/O 操作，两者配合参与 I/O 操作。`
+
+ChannelFuture
+
+`Netty 是异步非阻塞的，所有的 I/O 操作都为异步的。`
+
+`因此，我们不能立刻得到操作是否执行成功，但是，你可以通过 ChannelFuture 接口的 addListener() 方法注册一个 ChannelFutureListener，当操作执行成功或者失败时，监听就会自动触发返回结果。`
+
+ChannelHandler 和 ChannelPipeline
+
+`ChannelHandler是消息的具体处理器。他负责处理读写操作、客户端连接等事情。`
+
+`ChannelPipeline 为 ChannelHandler 的链，提供了一个容器并定义了用于沿着链传播入站和出站事件流的 API 。当 Channel 被创建时，它会被自动地分配到它专属的 ChannelPipeline。`
+
+`我们可以在 ChannelPipeline 上通过 addLast() 方法添加一个或者多个ChannelHandler ，因为一个数据或者事件可能会被多个 Handler 处理。当一个 ChannelHandler 处理完之后就将数据交给下一个 ChannelHandler 。`
+
+EventloopGroup 了解么?和 EventLoop 啥关系?
+
+![](images/netty.png)
+
+`EventLoopGroup 包含多个 EventLoop（每一个EventLoop通常内部包含一个线程），上面我们已经说了EventLoop的主要作用实际就是负责监听网络事件并调用事件处理器进行相关 I/O 操作的处理。`
+
+`并且 EventLoop 处理的 I/O 事件都将在它专有的 Thread 上被处理，即 Thread 和 EventLoop 属于 1 : 1 的关系，从而保证线程安全。`
+
+`上图是一个服务端对 EventLoopGroup 使用的大致模块图，其中 Boss EventloopGroup 用于接收连接，Worker EventloopGroup 用于具体的处理（消息的读写以及其他逻辑处理）。`
+
+`从上图可以看出：当客户端通过 connect 方法连接服务端时，bossGroup 处理客户端连接请求。当客户端处理完成后，会将这个连接提交给 workerGroup 来处理，然后 workerGroup 负责处理其 IO 相关操作。`
+
+Bootstrap 和 ServerBootstrap 了解么？
+
+1. `Bootstrap 通常使用 connet() 方法连接到远程的主机和端口，作为一个 Netty TCP 协议通信中的客户端。另外，Bootstrap 也可以通过 bind() 方法绑定本地的一个端口，作为 UDP 协议通信中的一端。`
+2. `ServerBootstrap通常使用 bind() 方法绑定本地的端口上，然后等待客户端的连接。`
+3. `Bootstrap 只需要配置一个线程组— EventLoopGroup ,而 ServerBootstrap需要配置两个线程组— EventLoopGroup，一个用于接收连接，一个用于具体的处理。`
+
+**Netty 是基于 Reactor 模式设计开发的**
+
+Reactor 模式基于事件驱动，采用多路复用将事件分发给相应的 Handler 处理，非常适合处理海量 IO 的场景
 
 ### TCP&UDP
 
@@ -705,9 +755,34 @@ B+树所有的Data域在叶子节点，并且所有叶子结点之间都有指�
 
 ###### mysql聚簇索引，覆盖索引，底层结构，主键索引，没有主键怎么办，会自己生成主键为什么还要自定义主键，自动生成的主键有什么问题
 
+聚簇索引:将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据
 
+覆盖索引:如果where条件的列和返回的数据在一个索引中，那么不需要回查表，那么就叫覆盖索引。
+
+- 如果定义了主键，那么InnoDB会使用主键作为聚簇索引
+- 如果没有定义主键，那么会使用第一非空的唯一索引（NOT NULL and UNIQUE INDEX）作为聚簇索引
+- 如果既没有主键也找不到合适的非空索引，那么InnoDB会自动生成一个不可见的名为row_id的列名为GEN_CLUST_INDEX的聚簇索引，该列是一个6字节的自增数值，随着插入而自增--补充：该全局row_id在代码实现上使用的是bigint unsigned类型，但实际上只给row_id留了6字节，这种设计就会存在一个问题：如果全局row_id一直涨，一直涨，直到2的48幂次-1时，这个时候再+1，row_id的低48位都为0，结果在插入新一行数据时，拿到的row_id就为0，存在主键冲突的可能性。
+
+**自动生成的主键有什么问题**
+
+- 使用不了主键索引，查询会进行全表扫描
+
+- 影响数据插入性能，插入数据需要生成ROW_ID，而生成的ROW_ID是全局共享的（InnoDB 维护了一个全局的 dictsys.row_id，所有未定义主键的表都共享该row_id），并发会导致锁竞争，影响性能
 
 ###### 一般你们怎么建mysql索引，基于什么原则，遇到过索引失效的情况么，怎么优化的
+
+1. 将范围查询的列放在复合索引的最后面，
+2. 列过滤的频繁越高，选择性越好，应该作为复合索引的前导列，适用于等值查找，
+
+**加了索引，为何却不生效**
+
+索引列是表示式的一部分，或是函数的一部分
+
+隐式类型转换
+
+隐式编码转换
+
+使用 order by 造成的全表扫描
 
 ### 日志
 
