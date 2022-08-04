@@ -14,8 +14,6 @@
 
 分布式系统出现网络分区的时候，仍然能够对外提供服务
 
-
-
 **不是三选二，分布式系统理论上不可能选择 CA 架构，只能选择 CP 或者 AP 架构**
 
 ##### CP(强一致性)
@@ -26,7 +24,9 @@
 
 ###### HBase
 
-##### AP
+
+
+##### AP(可用性)
 
 ###### Eureka
 
@@ -35,6 +35,8 @@ Eureka 不会像 ZooKeeper 那样出现选举过程中或者半数以上的机�
 Eureka 保证即使大部分节点挂掉也不会影响正常提供服务，只要有一个节点是可用的就行了,只不过这个节点上的数据可能并不是最新的
 
 ###### Cassandra
+
+
 
 ##### CP&AP
 
@@ -88,15 +90,15 @@ Eureka 保证即使大部分节点挂掉也不会影响正常提供服务，只�
 
 共识算法就是保证一个集群的多台机器协同工作，在遇到请求时，数据能够保持一致。
 
-#### Leader election 领导选举
+**Leader election 领导选举**
 
 领导者，跟随者，候选者
 
-#### Log replication 日志复制
+**Log replication 日志复制**
 
 
 
-#### Safety 安全性
+**Safety 安全性**
 
 #### 优点
 
@@ -118,19 +120,19 @@ Leader故障时存在重复数据问题，需要业务去重或幂等性保证
 
 必须将数据写到所有节点才能返回客户端成功的算法相比，Raft算法只需要大多数节点成功即可
 
-### Zab协议（ZooKeeper Atomic Broadcast 原子广播）
+### ZAB协议（ZooKeeper Atomic Broadcast 原子广播）
 
-#### 为分布式主备系统设计
+**为分布式主备系统设计**
 
-#### 为分布式协调服务 ZooKeeper 专门设计的一种支持崩溃恢复的原子广播协议
+**为分布式协调服务 ZooKeeper 专门设计的一种支持崩溃恢复的原子广播协议**
 
-#### 在 ZooKeeper 中，主要依赖 ZAB 协议来实现分布式数据一致性
+**在 ZooKeeper 中，主要依赖 ZAB 协议来实现分布式数据一致性**
 
-#### 崩溃恢复
+**崩溃恢复**
 
 当 Leader 服务器出现网络中断、崩溃退出与重启等异常情况时，ZAB 协议就会进入恢复模式并选举产生新的 Leader 服务器
 
-#### 消息广播
+**消息广播**
 
 集群中已经有过半的 Follower 服务器完成了和 Leader 服务器的状态同步，那么整个服务框架就可以进入消息广播模式了
 
@@ -138,7 +140,7 @@ Leader故障时存在重复数据问题，需要业务去重或幂等性保证
 
 #### etcd
 
-使用raft算法，比较currentTerm，三个状态Leader、Follower、Candidate
+使用Raft算法，比较currentTerm，三个状态Leader、Follower、Candidate
 
 #### Redis 的 Sentinel 
 
@@ -422,6 +424,18 @@ public class IndexController {
 ###### hash
 
 #### 一致性Hash
+
+**环形Hash空间**
+
+**把数据通过一定的hash算法处理后映射到环上**
+
+**将机器通过hash算法映射到环上**
+
+**机器的删除与添加**
+
+**平衡性**
+
+“虚拟节点”（ virtual node ）是实际节点（机器）在 hash 空间的复制品（ replica ）
 
 #### Nginx
 

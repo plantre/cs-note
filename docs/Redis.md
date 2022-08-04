@@ -6,7 +6,9 @@
 
 ### 丰富而合理的编码
 
-### 写时拷贝（CopyOnWrite）
+### 写时拷贝
+
+（CopyOnWrite）
 
 内核只为新生成的子进程创建虚拟空间结构，它们来复制于父进程的虚拟空间结构，但是不为这些段分配物理内存
 
@@ -36,7 +38,7 @@ Redis对SDS再次封装生成了RedisObject，type = REDIS_STRING,Redis会创建
 
 自动存储int类型，非int类型用raw编码
 
-###### OBJ_ENCODING_EMBSTR
+**OBJ_ENCODING_EMBSTR**
 
 Redis针对短字符串的优化
 
@@ -44,11 +46,11 @@ Redis针对短字符串的优化
 
 redisObject、sdshdr结构保存在一块连续的内存中，减少了内存碎片
 
-###### OBJ_ENCODING_RAW
+**OBJ_ENCODING_RAW**
 
 长度大于OBJ_ENCODING_EMBSTR_SIZE_LIMIT的字符串，在该编码中，redisObject、sds结构存放在两个不连续的内存块中
 
-###### OBJ_ENCODING_INT
+**OBJ_ENCODING_INT**
 
 将数值型字符串转换为整型，可以大幅降低数据占用的内存空间
 
@@ -88,13 +90,15 @@ lpush + brpop = message queue 消息队列
 
 rehashidx != -1则表示扩容到数组中的第几个了
 
-#### load_factor = ht[0].used / ht[0].size
+**load_factor = ht[0].used / ht[0].size**
 
 ###### <0.1收缩
 
 ###### >=1
 
-###### >=5,服务器目前正在执行BGSAVE命令或者BGREWRITEAOF命令
+###### >=5
+
+服务器目前正在执行BGSAVE命令或者BGREWRITEAOF命令
 
 K是字符串，V是多种
 
@@ -138,9 +142,13 @@ GEO利用 GeoHash 将二维的经纬度转换成字符串，来实现位置的�
 
 ## 持久化
 
-### 快照（snapshotting，RDB）
+### 快照-RDB
 
-### 只追加文件（append-only file, AOF）
+（snapshotting）
+
+### 只追加文件-AOF
+
+（append-only file）
 
 
 
@@ -172,13 +180,15 @@ replicaof/info replication
 
 #### 树状主从结构
 
-### 哨兵模式-Redis Sentinel （26379）
+### 哨兵模式
 
-###### 优点：
+-Redis Sentinel （26379）
+
+**优点：**
 
 集群部署简单，HA
 
-###### 缺点：
+**缺点：**
 
 原理繁琐，slave存在资源浪费，不能解决读写分离问题
 
@@ -214,7 +224,7 @@ redis-server sentinel.conf --sentinel
 
 `redis-cli --cluster info 192.168.153.128:6379`
 
-#### 为什么RedisCluster设计成16384个槽
+**为什么RedisCluster设计成16384个槽**
 
 如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大。
 如上所述，在消息头中，最占空间的是myslots[CLUSTER_SLOTS/8]。

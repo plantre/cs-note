@@ -16,9 +16,9 @@
 
 [计算机网络](docs/Net.md)
 
-[IO&Netty](docs/Netty.md)
-
 ## Java
+
+[IO&Netty](docs/Netty.md)
 
 [基础](docs/Java.md)
 
