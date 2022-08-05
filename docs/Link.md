@@ -1,7 +1,7 @@
-[60题](docs/Code.md)
+[60题](Code.md)
 
-[飞鱼面经](docs/Interview.md)
+[飞鱼面经](Interview.md)
 
-[LC200](docs/T200.md)
+[LC200](T200.md)
 
-[个人思路](docs/Algorithm.md)
+[个人思路](Algorithm.md)
